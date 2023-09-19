@@ -1,6 +1,6 @@
 package com.ur4n0.schoolroom.schedule;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.ur4n0.schoolroom.room.RoomModel;
 import com.ur4n0.schoolroom.teacher.TeacherModel;
@@ -23,11 +23,8 @@ public class ScheduleModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "completed")
-    private Boolean completed; 
-    
     @Column(name = "date")
-    private Date date; 
+    private LocalDateTime date; 
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
@@ -36,4 +33,7 @@ public class ScheduleModel {
     @ManyToOne
     @JoinColumn(name = "room_id")
     private RoomModel room;
+
+    public ScheduleModel() {
+    }
 }
