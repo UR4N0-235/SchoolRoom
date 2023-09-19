@@ -19,21 +19,21 @@ public class TeacherRepositoryTest {
     private TeacherRepository teacherRepository;
 
     @Test
-    public void testFindTeacherByEmail() {
-        TeacherModel teacher = new TeacherModel("John Doe", "johndoe@example.com", "password123");
+    public void testFindTeacherByRmfindByRm() {
+        TeacherModel teacher = new TeacherModel("John Doe", "09380", "password123");
         entityManager.persistAndFlush(teacher);
 
-        Optional<TeacherModel> foundTeacher = teacherRepository.findByEmail("johndoe@example.com");
+        Optional<TeacherModel> foundTeacher = teacherRepository.findByRm("09380");
 
         assertThat(foundTeacher).isPresent();
         assertThat(foundTeacher.get().getName()).isEqualTo(teacher.getName());
-        assertThat(foundTeacher.get().getEmail()).isEqualTo(teacher.getEmail());
+        assertThat(foundTeacher.get().getRm()).isEqualTo(teacher.getRm());
         assertThat(foundTeacher.get().getPassword()).isEqualTo(teacher.getPassword());
     }
 
     @Test
-    public void testFindTeacherByEmailNotFound() {
-        Optional<TeacherModel> foundTeacher = teacherRepository.findByEmail("nonexistent@example.com");
+    public void testFindTeacherByRmfindByRmNotFound() {
+        Optional<TeacherModel> foundTeacher = teacherRepository.findByRm("1111");
 
         assertThat(foundTeacher).isNotPresent();
     }

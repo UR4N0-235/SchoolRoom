@@ -21,7 +21,7 @@ public class TeacherModelTest {
         TeacherModel foundTeacher = entityManager.find(TeacherModel.class, teacher.getId());
 
         assertThat(foundTeacher.getName()).isEqualTo(teacher.getName());
-        assertThat(foundTeacher.getEmail()).isEqualTo(teacher.getEmail());
+        assertThat(foundTeacher.getRm()).isEqualTo(teacher.getRm());
         assertThat(foundTeacher.getPassword()).isEqualTo(teacher.getPassword());
     }
 }

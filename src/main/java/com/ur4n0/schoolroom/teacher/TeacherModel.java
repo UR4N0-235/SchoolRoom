@@ -12,10 +12,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class TeacherModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +26,8 @@ public class TeacherModel {
     @Column(name = "name", unique = false, nullable = false)
     private String name;
 
-    @Column(name = "email", unique = true, nullable = false)
-    private String email;
+    @Column(name = "rm", unique = true, nullable = false)
+    private String rm;
 
     @Column(name = "password", unique = false, nullable = false)
     private String password;
@@ -33,16 +35,16 @@ public class TeacherModel {
     @OneToMany(mappedBy = "teacher")
     private List<ScheduleModel> schedules = new ArrayList<>();
 
-    public TeacherModel(String name, String email, String password) {
+    public TeacherModel(String name, String rm, String password) {
         this.name = name;
-        this.email = email;
+        this.rm = rm;
         this.password = password;
     }
 
-    public TeacherModel(Long id, String name, String email, String password) {
+    public TeacherModel(Long id, String name, String rm, String password) {
         this.id = id;
         this.name = name;
-        this.email = email;
+        this.rm = rm;
         this.password = password;
     }
 }

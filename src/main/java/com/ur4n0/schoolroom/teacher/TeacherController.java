@@ -37,15 +37,18 @@ public class TeacherController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/email/{email}")
-    public ResponseEntity<TeacherModel> getTeacherByEmail(@PathVariable String email) {
-        Optional<TeacherModel> teacher = teacherService.getTeacherByEmail(email);
+    @GetMapping("/rm/{rm}")
+    public ResponseEntity<TeacherModel> getTeacherByRm(@PathVariable String rm) {
+        Optional<TeacherModel> teacher = teacherService.getTeacherByRm(rm);
         return teacher.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    public ResponseEntity<TeacherModel> createTeacher(@RequestBody TeacherModel teacher) {
+    public ResponseEntity<?> createTeacher(@RequestBody TeacherModel teacher) {
+        if (teacherService.getTeacherByRm(teacher.getRm()).isPresent()) return ResponseEntity.status(HttpStatus.CONFLICT).body("Já existe um professor com esse rm");
+        if (teacher.getId() != null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não é permitido a escolha de id");
+        
         TeacherModel createdTeacher = teacherService.createTeacher(teacher);
         return new ResponseEntity<>(createdTeacher, HttpStatus.CREATED);
     }

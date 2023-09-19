@@ -22,8 +22,8 @@ public class TeacherService {
         return teacherRepository.findById(id);
     }
 
-    public Optional<TeacherModel> getTeacherByEmail(String email) {
-        return teacherRepository.findByEmail(email);
+    public Optional<TeacherModel> getTeacherByRm(String rm) {
+        return teacherRepository.findByRm(rm);
     }
 
     public TeacherModel createTeacher(TeacherModel teacher) {
@@ -36,7 +36,7 @@ public class TeacherService {
         if (optionalTeacher.isPresent()) {
             TeacherModel existingTeacher = optionalTeacher.get();
             existingTeacher.setName(updatedTeacher.getName());
-            existingTeacher.setEmail(updatedTeacher.getEmail());
+            existingTeacher.setRm(updatedTeacher.getRm());
             existingTeacher.setPassword(updatedTeacher.getPassword());
             return teacherRepository.save(existingTeacher);
         } else {

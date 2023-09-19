@@ -4,5 +4,5 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TeacherRepository extends JpaRepository<TeacherModel, Long> {
- Optional<TeacherModel> findByEmail(String email);   
+ Optional<TeacherModel> findByRm(String rm);   
 }

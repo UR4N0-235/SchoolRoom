@@ -24,11 +24,11 @@ public class TeacherServiceTest {
 
     @BeforeEach
     public void setUp() {
-        TeacherModel teacher = new TeacherModel(1L, "John Doe", "johndoe@example.com", "password123");
+        TeacherModel teacher = new TeacherModel(1L, "John Doe", "09890", "password123");
 
         when(teacherRepository.findAll()).thenReturn(Arrays.asList(teacher));
         when(teacherRepository.findById(1L)).thenReturn(Optional.of(teacher));
-        when(teacherRepository.findByEmail("johndoe@example.com")).thenReturn(Optional.of(teacher));
+        when(teacherRepository.findByRm("09890")).thenReturn(Optional.of(teacher));
     }
 
     @Test
@@ -44,14 +44,14 @@ public class TeacherServiceTest {
     }
 
     @Test
-    public void testGetTeacherByEmail() {
-        Optional<TeacherModel> teacher = teacherService.getTeacherByEmail("johndoe@example.com");
+    public void testGetTeacherByRmfindByRm() {
+        Optional<TeacherModel> teacher = teacherService.getTeacherByRm("09890");
         assertThat(teacher).isPresent();
     }
 
     @Test
     public void testCreateTeacher() {
-        TeacherModel newTeacher = new TeacherModel("Jane Smith", "janesmith@example.com", "password456");
+        TeacherModel newTeacher = new TeacherModel("Jane Smith", "0930", "password456");
         teacherService.createTeacher(newTeacher);
 
         verify(teacherRepository, times(1)).save(newTeacher);
@@ -59,7 +59,7 @@ public class TeacherServiceTest {
 
     @Test
     public void testUpdateTeacher() {
-        TeacherModel updatedTeacher = new TeacherModel(1L, "Updated Name", "updated@example.com", "newpassword");
+        TeacherModel updatedTeacher = new TeacherModel(1L, "Updated Name", "0328", "newpassword");
 
         when(teacherRepository.findById(1L)).thenReturn(Optional.of(updatedTeacher));
 
