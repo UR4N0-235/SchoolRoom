@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/teachers")
 public class TeacherController {
@@ -45,7 +47,7 @@ public class TeacherController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createTeacher(@RequestBody TeacherModel teacher) {
+    public ResponseEntity<?> createTeacher(@Valid @RequestBody TeacherModel teacher) {
         if (teacherService.getTeacherByRm(teacher.getRm()).isPresent()) return ResponseEntity.status(HttpStatus.CONFLICT).body("Já existe um professor com esse rm");
         if (teacher.getId() != null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não é permitido a escolha de id");
         

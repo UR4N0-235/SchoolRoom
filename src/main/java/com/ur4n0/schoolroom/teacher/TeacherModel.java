@@ -2,6 +2,8 @@ package com.ur4n0.schoolroom.teacher;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
 import com.ur4n0.schoolroom.schedule.ScheduleModel;
 
 import jakarta.persistence.Column;
@@ -24,12 +26,15 @@ public class TeacherModel {
     private Long id;
 
     @Column(name = "name", unique = false, nullable = false)
+    @NotBlank(message = "Insira o nome do professor")
     private String name;
 
     @Column(name = "rm", unique = true, nullable = false)
+    @NotBlank(message = "Insira o rm do professor")
     private String rm;
 
     @Column(name = "password", unique = false, nullable = false)
+    @NotBlank(message = "Insira a senha temporaria do professor")
     private String password;
 
     @OneToMany(mappedBy = "teacher")
