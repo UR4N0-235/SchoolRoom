@@ -5,10 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.ur4n0.schoolroom.person.PersonModel;
+import com.ur4n0.schoolroom.person.PersonService;
 import com.ur4n0.schoolroom.room.RoomModel;
 import com.ur4n0.schoolroom.room.RoomService;
-import com.ur4n0.schoolroom.teacher.TeacherModel;
-import com.ur4n0.schoolroom.teacher.TeacherService;
 import com.ur4n0.schoolroom.utils.TimeConverter;
 
 import java.time.LocalDate;
@@ -24,20 +24,20 @@ public class ScheduleController {
     private ScheduleService scheduleService;
 
     @Autowired
-    private TeacherService teacherService;
+    private PersonService personService;
 
     @Autowired
     private RoomService roomService;
 
     @PostMapping
     public ResponseEntity<?> createSchedule(@RequestBody ScheduleDTO scheduleDTO) {
-        Optional<TeacherModel> teacher = teacherService.getTeacherById(scheduleDTO.getTeacherId());
+        Optional<PersonModel> person = personService.getPersonById(scheduleDTO.getPersonId());
         Optional<RoomModel> room = roomService.getRoomById(scheduleDTO.getRoomId());
 
-        if (!teacher.isPresent() && !room.isPresent())
+        if (!person.isPresent() && !room.isPresent())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Não existe professor nem sala com o id informado!");
-        if (!teacher.isPresent())
+        if (!person.isPresent())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("não existe professor com o id informado!");
         if (!room.isPresent())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("não existe sala com o id informado!");
@@ -45,7 +45,7 @@ public class ScheduleController {
         ScheduleModel schedule = new ScheduleModel();
         schedule.setStartDate(TimeConverter.convertTimestampToDateTime(scheduleDTO.getStartDate()));
         schedule.setEndDate(TimeConverter.convertTimestampToDateTime(scheduleDTO.getEndDate()));
-        schedule.setTeacher(teacher.get());
+        schedule.setPerson(person.get());
         schedule.setRoom(room.get());
 
         if (!scheduleService.isUnoccupiedRoom(schedule))
@@ -90,12 +90,12 @@ public class ScheduleController {
 
     // GET params
 
-    @GetMapping(params = "teacherId")
-    public ResponseEntity<List<ScheduleModel>> getSchedulesByTeacher(@RequestParam("teacherId") Long teacherId) {
-        Optional<TeacherModel> teacher = teacherService.getTeacherById(teacherId);
+    @GetMapping(params = "personId")
+    public ResponseEntity<List<ScheduleModel>> getSchedulesByPerson(@RequestParam("personId") Long personId) {
+        Optional<PersonModel> person = personService.getPersonById(personId);
 
-        if (teacher.isPresent()) {
-            List<ScheduleModel> schedules = scheduleService.getSchedulesByTeacher(teacher.get());
+        if (person.isPresent()) {
+            List<ScheduleModel> schedules = scheduleService.getSchedulesByPerson(person.get());
             return new ResponseEntity<>(schedules, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -142,16 +142,16 @@ public class ScheduleController {
         return new ResponseEntity<>(schedules, HttpStatus.OK);
     }
 
-    @GetMapping(params = { "teacherId",
+    @GetMapping(params = { "personId",
             "roomId" })
-    public ResponseEntity<List<ScheduleModel>> getSchedulesByTeacherAndRoom(
-            @RequestParam() Long teacherId,
+    public ResponseEntity<List<ScheduleModel>> getSchedulesByPersonAndRoom(
+            @RequestParam() Long personId,
             @RequestParam() Long roomId) {
-        Optional<TeacherModel> teacher = teacherService.getTeacherById(teacherId);
+        Optional<PersonModel> person = personService.getPersonById(personId);
         Optional<RoomModel> room = roomService.getRoomById(roomId);
 
-        if (teacher.isPresent() && room.isPresent()) {
-            List<ScheduleModel> schedules = scheduleService.getSchedulesByTeacherAndRoom(teacher.get(), room.get());
+        if (person.isPresent() && room.isPresent()) {
+            List<ScheduleModel> schedules = scheduleService.getSchedulesByPersonAndRoom(person.get(), room.get());
             return new ResponseEntity<>(schedules, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

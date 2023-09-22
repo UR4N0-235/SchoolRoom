@@ -1,4 +1,4 @@
-INSERT INTO teacher_model (name, rm, password)
+INSERT INTO person_model (name, rm, password)
 VALUES ('Maria da Silva', '5678', 'senha123'),
     ('José Souza', '9876', 'segura456'),
     ('Ana Pereira', '5432', 'minhasenha'),

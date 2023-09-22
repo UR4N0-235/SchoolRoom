@@ -2,8 +2,8 @@ package com.ur4n0.schoolroom.schedule;
 
 import java.time.LocalDateTime;
 
+import com.ur4n0.schoolroom.person.PersonModel;
 import com.ur4n0.schoolroom.room.RoomModel;
-import com.ur4n0.schoolroom.teacher.TeacherModel;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,8 +30,8 @@ public class ScheduleModel {
     private LocalDateTime endDate;    
 
     @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    private TeacherModel teacher;
+    @JoinColumn(name = "person_id")
+    private PersonModel person;
 
     @ManyToOne
     @JoinColumn(name = "room_id")

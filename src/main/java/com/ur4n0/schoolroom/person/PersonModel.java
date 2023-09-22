@@ -1,4 +1,4 @@
-package com.ur4n0.schoolroom.teacher;
+package com.ur4n0.schoolroom.person;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TeacherModel {
+public class PersonModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,17 +38,17 @@ public class TeacherModel {
     @NotBlank(message = "Insira a senha temporaria do professor")
     private String password;
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "person")
     @JsonIgnore
     private List<ScheduleModel> schedules = new ArrayList<>();
 
-    public TeacherModel(String name, String rm, String password) {
+    public PersonModel(String name, String rm, String password) {
         this.name = name;
         this.rm = rm;
         this.password = password;
     }
 
-    public TeacherModel(Long id, String name, String rm, String password) {
+    public PersonModel(Long id, String name, String rm, String password) {
         this.id = id;
         this.name = name;
         this.rm = rm;

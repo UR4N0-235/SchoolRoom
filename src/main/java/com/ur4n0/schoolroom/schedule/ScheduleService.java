@@ -8,8 +8,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ur4n0.schoolroom.person.PersonModel;
 import com.ur4n0.schoolroom.room.RoomModel;
-import com.ur4n0.schoolroom.teacher.TeacherModel;
 
 @Service
 public class ScheduleService {
@@ -47,7 +47,7 @@ public class ScheduleService {
         scheduleToUpdate.setStartDate(updatedSchedule.getStartDate());
         scheduleToUpdate.setEndDate(updatedSchedule.getEndDate());
 
-        scheduleToUpdate.setTeacher(updatedSchedule.getTeacher());
+        scheduleToUpdate.setPerson(updatedSchedule.getPerson());
         scheduleToUpdate.setRoom(updatedSchedule.getRoom());
 
         return scheduleRepository.save(scheduleToUpdate);
@@ -61,16 +61,16 @@ public class ScheduleService {
         return scheduleRepository.findAll();
     }
 
-    public List<ScheduleModel> getSchedulesByTeacher(TeacherModel teacher) {
-        return scheduleRepository.findByTeacher(teacher);
+    public List<ScheduleModel> getSchedulesByPerson(PersonModel person) {
+        return scheduleRepository.findByPerson(person);
     }
 
     public List<ScheduleModel> getSchedulesByRoom(RoomModel room) {
         return scheduleRepository.findByRoom(room);
     }
 
-    public List<ScheduleModel> getSchedulesByTeacherAndRoom(TeacherModel teacher, RoomModel room) {
-        return scheduleRepository.findByTeacherAndRoom(teacher, room);
+    public List<ScheduleModel> getSchedulesByPersonAndRoom(PersonModel person, RoomModel room) {
+        return scheduleRepository.findByPersonAndRoom(person, room);
     }
 
     public List<ScheduleModel> getSchedulesByDay(LocalDate date) {

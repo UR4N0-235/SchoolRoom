@@ -6,6 +6,6 @@ import lombok.Data;
 public class ScheduleDTO {
     private Long startDate;
     private Long endDate;
-    private Long teacherId;
+    private Long personId;
     private Long roomId;
 }

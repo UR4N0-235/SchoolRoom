@@ -1,4 +1,4 @@
-INSERT INTO schedule_model (startDate, endDate, teacher_id, room_id)
+INSERT INTO schedule_model (startDate, endDate, person_id, room_id)
 VALUES (
         '2023-09-20T19:00:00',
         '2023-09-20T20:50:00',
