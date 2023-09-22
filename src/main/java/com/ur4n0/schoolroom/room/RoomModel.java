@@ -29,7 +29,7 @@ public class RoomModel {
 
     @Column(name = "type", nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private RoomType type;
+    private RoomType type = RoomType.SALA_DE_AULA;
 
     @Column(name = "number", nullable = false)
     private int number;
@@ -41,7 +41,6 @@ public class RoomModel {
     public RoomModel(Long id, int number) {
         this.id = id;
         this.number = number;
-        this.type = RoomType.SALA_DE_AULA; // default
     }
 
     public RoomModel(Long id, int number, RoomType type) {
