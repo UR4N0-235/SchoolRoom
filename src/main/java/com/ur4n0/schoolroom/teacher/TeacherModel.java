@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ur4n0.schoolroom.schedule.ScheduleModel;
 
 import jakarta.persistence.Column;
@@ -38,6 +39,7 @@ public class TeacherModel {
     private String password;
 
     @OneToMany(mappedBy = "teacher")
+    @JsonIgnore
     private List<ScheduleModel> schedules = new ArrayList<>();
 
     public TeacherModel(String name, String rm, String password) {
