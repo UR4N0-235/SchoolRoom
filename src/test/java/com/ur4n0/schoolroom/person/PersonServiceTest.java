@@ -6,10 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.ur4n0.schoolroom.person.PersonModel;
-import com.ur4n0.schoolroom.person.PersonRepository;
-import com.ur4n0.schoolroom.person.PersonService;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;

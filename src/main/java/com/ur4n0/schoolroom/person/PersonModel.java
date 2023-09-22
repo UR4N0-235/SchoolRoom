@@ -1,4 +1,5 @@
 package com.ur4n0.schoolroom.person;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import com.ur4n0.schoolroom.schedule.ScheduleModel;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,6 +40,10 @@ public class PersonModel {
     @Column(name = "password", unique = false, nullable = false)
     @NotBlank(message = "Insira a senha temporaria do professor")
     private String password;
+
+    @Column(name = "type", nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private PersonType type = PersonType.TEACHER;
 
     @OneToMany(mappedBy = "person")
     @JsonIgnore
