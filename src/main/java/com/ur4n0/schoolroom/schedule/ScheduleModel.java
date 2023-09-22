@@ -23,8 +23,11 @@ public class ScheduleModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "date")
-    private LocalDateTime date; 
+    @Column(name = "STARTDATE")
+    private LocalDateTime startDate;
+    
+    @Column(name = "ENDDATE")
+    private LocalDateTime endDate;    
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
